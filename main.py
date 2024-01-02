@@ -51,10 +51,12 @@
 #     app.run(debug=True)
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from flask_sslify import SSLify
 import mysql.connector
 import json
 
 app = Flask(__name__)
+sslify=SSLify(app)
 CORS(app) 
 @app.route('/consulta/<string:consultadb>', methods=['GET'])
 def consulta(consultadb):
@@ -105,4 +107,4 @@ def consulta(consultadb):
             return jsonify(resultados)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True,ssl_context=('cert.pem','key.pem'))
